@@ -57,7 +57,7 @@ export default function SideMenu() {
         </List>
       </Collapse>
     </List>
-    <List disablePadding>
+    {/* <List disablePadding>
       <ListItemButton sx={{ paddingY: '0.25rem' }} onClick={() => setOpenShared((value) => !value)}>
         <ListItemIcon>
           <FolderShared />
@@ -65,6 +65,6 @@ export default function SideMenu() {
         <ListItemText primary={'共享資料夾'} />
         {openShared ? <ExpandMore /> : <KeyboardArrowRight />}
       </ListItemButton>
-    </List>
+    </List> */}
   </>;
 }
