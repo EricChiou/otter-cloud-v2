@@ -2,14 +2,14 @@ import { useState, ReactElement } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { List, ListItemButton, ListItemIcon, ListItemText, Collapse } from '@mui/material';
-import { Cloud, KeyboardArrowRight, ExpandMore, Folder, FolderShared } from '@mui/icons-material';
+import { Cloud, KeyboardArrowRight, ExpandMore, Folder/* , FolderShared */ } from '@mui/icons-material';
 
 import FileAPI from '@/api/file';
 
 export default function SideMenu() {
   const search = useSearchParams();
   const [open, setOpen] = useState(true);
-  const [openShared, setOpenShared] = useState(true);
+  // const [openShared, setOpenShared] = useState(true);
 
   const { data } = useQuery({
     queryKey: ['sideMenu'],
