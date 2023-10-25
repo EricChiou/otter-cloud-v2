@@ -38,16 +38,19 @@ export default function Header() {
       <div className="flex-col">
         <div className="hidden md:block md:my-1.25 lg:my-2">{userStore.user.name}</div>
       </div>
-      <div className="flex-col">
-        <div ref={menuRef}>
-          <IconButton aria-label="menu" color="inherit" sx={buttonSize} onClick={() => setMenuOpen(() => true)}>
-            <MenuIcon></MenuIcon>
-          </IconButton>
-        </div>
-        <Menu anchorEl={menuRef.current} open={menuOpen} onClose={() => setMenuOpen(() => false)}>
-          <MenuItem></MenuItem>
-        </Menu>
-      </div>
+      { userStore.user.name && (
+          <div className="flex-col">
+            <div ref={menuRef}>
+              <IconButton aria-label="menu" color="inherit" sx={buttonSize} onClick={() => setMenuOpen(() => true)}>
+                <MenuIcon></MenuIcon>
+              </IconButton>
+            </div>
+            <Menu anchorEl={menuRef.current} open={menuOpen} onClose={() => setMenuOpen(() => false)}>
+              <MenuItem></MenuItem>
+            </Menu>
+          </div>
+        )
+      }
     </div>
   );
 }

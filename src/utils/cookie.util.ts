@@ -1,4 +1,4 @@
-export class Cookie {
+export default class Cookie {
   /**
    * @param key Cookie key.
    */

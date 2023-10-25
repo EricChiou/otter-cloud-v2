@@ -2,6 +2,7 @@ import axios, { AxiosRequestConfig as Config, AxiosResponse } from 'axios';
 
 import { ApiResult, Response } from './types';
 
+import Router, { routes } from '@/router';
 import UserService from '@/services/user.service';
 
 const baseURL = 'https://www.calicomoomoo.com/otter-cloud-ws';
@@ -22,7 +23,14 @@ request.interceptors.request.use((config) => {
 request.interceptors.response.use(
   (resp) => {
     if (200 <= resp.status && resp.status <= 299) {
-      if (resp.data?.status && (resp.data?.status !== ApiResult.Success)) return Promise.reject(resp);
+      if (resp.data?.status) {
+        switch (resp.data.status) {
+          case ApiResult.Success:
+            return resp;
+          case ApiResult.TokenError:
+            Router.navigate(routes.login);
+        }
+      }
       return resp;
     }
     return Promise.reject(resp);
@@ -30,7 +38,7 @@ request.interceptors.response.use(
   (error) => {
     let errorMsg = '';
     if (error.message) errorMsg = error.message;
-    if (error.response?.data) errorMsg = error.response.data;
+    if (error.response?.data) errorMsg = error.response?.data;
     if (errorMsg) console.error('api error:', errorMsg);
 
     return Promise.reject(error);

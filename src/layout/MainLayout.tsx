@@ -8,7 +8,7 @@ export default function MainLayout({ children }: PropsWithChildren) {
     <div className="h-8 md:h-10 lg:h-12">
       <Header></Header>
     </div>
-    <div className="flex h-[calc(100vh-3rem)]">
+    <div className="flex h-[calc(100vh-2rem)] md:h-[calc(100vh-2.5rem)] lg:h-[calc(100vh-3rem)]">
       <div className="flex-col w-64 shadow-[1px_0_0_0_#ddd]">
         <SideMenu></SideMenu>
       </div>

@@ -2,7 +2,9 @@ import { create } from 'zustand';
 
 import { UserProfile, Lang } from '@/types/user';
 
+import Router, { routes } from '@/router';
 import UserService from '@/services/user.service';
+import UserAPI from '@/api/user';
 
 interface UserState {
   user: UserProfile;
@@ -12,6 +14,7 @@ interface UserState {
 interface UserAction {
   setUser: (user: UserProfile) => void;
   setLang: (lang: string) => void;
+  login: (acc: string, pwd: string, rememberMe?: boolean) => void;
 }
 
 const initialState: UserState = {
@@ -35,6 +38,13 @@ const useUserStore = create<UserState & UserAction>((set) => ({
       return set(() => ({ lang: Lang.ZH }));
     }
     set(() => ({ lang: Lang.EN }));
+  },
+  login: (acc: string, pwd: string, rememberMe = false) => {
+    UserAPI.Login(acc, pwd, rememberMe).then((resp) => {
+      UserService.SetToken(resp.data.data.token);
+      set(() => ({ user: UserService.GetProfile() }));
+      Router.navigate(routes.home);
+    });
   },
 }));
 

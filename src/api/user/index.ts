@@ -5,7 +5,7 @@ import Requset from '../request';
 export default class UserAPI {
   private static readonly PRE_URL = '/user';
 
-  public static Login(acc: string, pwd: string, rememberMe: boolean) {
+  public static Login(acc: string, pwd: string, rememberMe = false) {
     return Requset.Post<SingIn>(`${this.PRE_URL}/signIn`, { acc, pwd, rememberMe });
   }
 }

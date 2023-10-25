@@ -1,8 +1,11 @@
 import { Lang, UserProfile } from '@/types/user';
 
-import { Cookie } from '@/utils/cookie.util';
+import Cookie from '@/utils/cookie.util';
 
 export default class UserService {
+  private static readonly TokenKey = 'token';
+  private static readonly Expires = 4102444800000;
+
   public static GetLang(): Lang {
     const lang = Cookie.Get('lang') || window.navigator.language;
     if (lang.startsWith(Lang.EN)) return Lang.EN;
@@ -11,13 +14,17 @@ export default class UserService {
   }
 
   public static GetToken(): string {
-    const base64 = Cookie.Get('token');
+    const base64 = Cookie.Get(this.TokenKey);
     try {
       return atob(base64);
     } catch (error) {
       console.error(error);
     }
     return '';
+  }
+
+  public static SetToken(jwt: string) {
+    Cookie.Add(this.TokenKey, btoa(jwt), this.Expires);
   }
 
   public static GetProfile(): UserProfile {
