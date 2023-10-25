@@ -32,12 +32,12 @@ const useFileStore = create<FileState & FileAction>((set) => ({
   getFileList: async (path: string) => {
     set({ isLoading: true, path });
     const resp = await FileAPI.GetFileList(path);
-    const list = resp.data.data.map((file) => ({
+    const list = resp.data.data?.map((file) => ({
       ...file,
       fileType: FileService.GetFileType(file),
       canSelect: !!(file.contentType && file.size),
       selected: false,
-    }));
+    })) || [];
     set({ isLoading: false, list });
   },
 }));
