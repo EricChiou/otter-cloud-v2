@@ -6,9 +6,11 @@ import HeaderLayout from './layout/HeaderLayout';
 import Home from './views/Home';
 import Login from './views/Login';
 
+const baseURL = import.meta.env.PROD ? '/otter-cloud' : '';
+
 export const routes = {
-  home: '/',
-  login: '/login',
+  home:  baseURL + '/',
+  login: baseURL + '/login',
 };
 
 const router = createBrowserRouter([
